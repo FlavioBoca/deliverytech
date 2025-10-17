@@ -18,8 +18,8 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
 
-    - name: Build image Docker
-      run: docker build -t deliverytech:latest.
+    # - name: Build image Docker
+    #   run: docker build -t deliverytech:latest.
 
     - name: Build with Maven
       run: mvn clean package install -DskipTests=true
