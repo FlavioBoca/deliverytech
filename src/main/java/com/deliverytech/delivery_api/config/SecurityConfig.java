@@ -17,13 +17,10 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
-
-    private final JwtAuthenticationFilter jwtFilter;
-
+ 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -33,8 +30,8 @@ public class SecurityConfig {
                     "/health",
                     "/info",
                     "/v3/api-docs/**",            
-                    "/swagger-ui/**",             
-                    "/swagger-ui.html",             
+                    "/swagger-ui/**",            
+                    "/swagger-ui.html",            
                     "/swagger-resources/**",        
                     "/api-docs/**",
                     "/actuator/**"
@@ -42,7 +39,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
+ 
         return http.build();
     }
 
