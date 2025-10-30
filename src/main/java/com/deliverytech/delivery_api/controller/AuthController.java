@@ -2,15 +2,13 @@ package com.deliverytech.delivery_api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import com.deliverytech.delivery_api.dto.request.LoginRequest;
 import com.deliverytech.delivery_api.dto.request.RegisterRequest;
@@ -37,7 +35,7 @@ public class AuthController {
 
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired 
+    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtil jwtUtil;
@@ -46,17 +44,19 @@ public class AuthController {
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Login de usuário", description = "Realizar o login do usuário")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Login realizado com sucesso"),
-        @ApiResponse(responseCode = "401", description = "Login inválido", content = @Content(schema = @Schema(implementation = Void.class))),
+            @ApiResponse(responseCode = "200", description = "Login realizado com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Login inválido", content = @Content(schema = @Schema(implementation = Void.class))),
     })
     
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         try {
+            // MUDANÇA: usar username e password em vez de email e senha
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
+            // Se a autenticação for bem-sucedida, gera um token JWT
             String username = authentication.getName();
-            String token = jwtUtil.gerarToken(username);
+            String token = jwtUtil.gerarToken(username); // MUDANÇA: usar gerarToken em vez de generateToken
 
             LoginResponse dto = new LoginResponse(token);
             return ResponseEntity.ok(dto);
@@ -66,9 +66,9 @@ public class AuthController {
     }
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Registar um usuário", description = "Cadastrar um novo usuário na plataforma'")
+    @Operation(summary = "Registrar um usuário", description = "Cadastrar um novo usuário na plataforma")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Registro salvo com"),
+            @ApiResponse(responseCode = "201", description = "Registro salvo com sucesso"),
             @ApiResponse(responseCode = "400", description = "Registro inválido", content = @Content(schema = @Schema(implementation = Void.class))),
     })
 
@@ -77,12 +77,5 @@ public class AuthController {
         UserResponse response = UserResponse.fromEntity(novoUsuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
-
-    
-
-
-
-
 }
- 
+

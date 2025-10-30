@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Schema(
-     description = "Resposta quando realizar o login",
-    title = "Login Response DTO"
+     description = "Resposta quando realizar o login", 
+     title = "Login Response DTO"
 )
 
 @Data
