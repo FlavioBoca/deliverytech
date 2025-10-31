@@ -19,15 +19,18 @@ public class OpenApiConfig {
             .info(new Info()
                 .title("Delivery API")
                 .version("1.0")
-                .description("Documentação da API de Autenticação com JWT"))
+                .description("Documentação da API da autenticação com JWT"))
             .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
             .components(new Components()
                 .addSecuritySchemes(securitySchemeName,
                     new SecurityScheme()
-                        .name(securitySchemeName)
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")
-                ));
+                    .name(securitySchemeName)
+                    .type(SecurityScheme.Type.HTTP)
+                    .scheme("bearer")
+                    .bearerFormat("JWT")
+                )
+          );
+
     }
+
 }

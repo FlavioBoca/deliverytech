@@ -9,12 +9,12 @@ import com.deliverytech.delivery_api.model.Usuario;
 public interface AuthService {
 
     // Cláusula numero 1: Deve saber como processar um login
-    LoginResponse login(LoginRequest request); 
+    LoginResponse login(LoginRequest request);
 
-    // Cláusula numero 2: Deve saber como registrar um novo usuário
+    // Clausula numero 2: Deve saber como registrar um novo usuario
     Usuario register(RegisterRequest request);
 
-    // Cláusula numero 3: Deve saber como obter informações do usuário autenticado
+    // Clausula numero 3? Deve saber como obter informacoes do usuario logado
     UserResponse getCurrentUser();
 
 

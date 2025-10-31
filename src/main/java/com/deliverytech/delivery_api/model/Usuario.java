@@ -1,14 +1,15 @@
-package com.deliverytech.delivery_api.model;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
+package com.deliverytech.delivery_api.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Data
@@ -22,14 +23,14 @@ public class Usuario implements UserDetails {
     private Long id;
 
     @Column(nullable = false)
-    private String Nome;
+    private String nome;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String senha;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
@@ -77,4 +78,4 @@ public class Usuario implements UserDetails {
         return ativo;
     }
 
-}
+} 

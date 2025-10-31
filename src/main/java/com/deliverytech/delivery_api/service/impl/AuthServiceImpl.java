@@ -1,7 +1,8 @@
 package com.deliverytech.delivery_api.service.impl;
 
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,10 @@ import com.deliverytech.delivery_api.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
 
+
 @Service
 @RequiredArgsConstructor
-
-public class AuthServiceImpl implements UserDetailsService, AuthService {
-
+public class AuthServiceImpl implements UserDetailsService, AuthService{
     private final UsuarioRepository usuarioRepository;
 
     @Override
@@ -35,16 +35,18 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        throw new UnsupportedOperationException("Login não implementado");
+        throw new UnsupportedOperationException("Login ainda não implementado");
     }
 
-    @Override  public Usuario register(RegisterRequest request) {
-        throw new UnsupportedOperationException("Registro não implementado");
+    @Override
+    public Usuario register(RegisterRequest request) {
+        throw new UnsupportedOperationException("Registro ainda não implementado");
     }
 
     @Override
     public UserResponse getCurrentUser() {
-        throw new UnsupportedOperationException("Usuário atual não implementado");
+        throw new UnsupportedOperationException("Usuario ainda não implementado");
     }
+
 
 }

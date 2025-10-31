@@ -2,7 +2,6 @@ package com.deliverytech.delivery_api.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.lang.Object;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,59 +21,61 @@ import com.deliverytech.delivery_api.security.JwtUtil;
 import com.deliverytech.delivery_api.service.UsuarioService;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService{
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    
     @Autowired
     private JwtUtil jwtUtil;
-
+    
     @Autowired
     private UsuarioRepository usuarioRepository;
-
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
-        try {
+        try{
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsername(),
-                            loginRequest.getPassword()
-                    )
+                new UsernamePasswordAuthenticationToken(
+                    loginRequest.getUsername(), 
+                    loginRequest.getPassword()
+                )
             );
 
-            String token = jwtUtil.generateToken(authentication.getName());
+            String token =  jwtUtil.generateToken(authentication.getName());
+
             LoginResponse response = new LoginResponse();
             response.setToken(token);
             response.setUsername(authentication.getName());
             response.setMessage("Login realizado com sucesso");
+
             return response;
 
         } catch (Exception e) {
-            throw new RuntimeException("Credenciais inválidas");
+            throw new RuntimeException("Credenciais inválidas", e);
         }
     }
-    // espaço reservado para inserção de tokens na black list
+
+    //Espaço reservador para inserção de tokens na blacklist
     @Override
     public void logout(String token) {
-        // Implement logout logic if necessary (e.g., token blacklisting)
+
     }
 
-    //Metodo para buscar usuário expecifico por ID
-
+    //Método para buscar um usuário específico -  por ID
     @Override
     public Object buscarPorId(Long id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
-        if (usuario.isPresent()) {
-            return usuario.get();
-        }
-            throw new RuntimeException("Usuário não encontrado com ID: " + id);
-        }
-    
-    //Metodo para inativar usuário expecifico por ID
+          if(usuario.isPresent()) {
+                return usuario.get();
+          }
+          throw new RuntimeException("Usuário não encontrado " + id);
+    }
+
+    //Método para inativar um usuário
     @Override
     public void inativarUsuario(Long id) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
@@ -83,27 +84,26 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.setAtivo(false);
             usuarioRepository.save(usuario);
         } else {
-            throw new RuntimeException("Usuário não encontrado com ID: " + id);
+            throw new RuntimeException("Usuário não encontrado " + id);
         }
     }
-
-     //Metodo para verificar existencia do usuário por e-mail
+    
+    //Métodos para verificação e busca por email
     @Override
     public boolean existePorEmail(String email) {
         return usuarioRepository.findByEmail(email) != null;
     }
- 
-    
+
     @Override
     public UserDetails buscarPorEmail(String email) {
         UserDetails usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
-            throw new RuntimeException("Usuário não encontrado com email: " + email);
+            throw new RuntimeException("Usuário não encontrado" + email);
         }
         return usuario;
     }
 
-    // Metodo para salvar novo usuário
+    // Método para salvar
     @Override
     public Usuario salvar(RegisterRequest registerRequest) {
         if (existePorEmail(registerRequest.getEmail())) {
@@ -118,14 +118,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setDataCriacao(LocalDateTime.now());
 
         if (registerRequest.getRole() == null) {
-            usuario.setRole(Role.USER);
+            usuario.setRole(Role.USER);            
         } else {
             usuario.setRole(registerRequest.getRole());
         }
-
+    
         return usuarioRepository.save(usuario);
     }
 
 
-
+    
 }

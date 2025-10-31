@@ -21,7 +21,7 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
     
-    // Gera um token JWT para o usuário
+    // Metodo - Gera um token JWT para o usuário
     public String gerarToken(String email) {
         Date agora = new Date();
         Date dataExpiracao = new Date(agora.getTime() + expiration);
@@ -35,7 +35,7 @@ public class JwtUtil {
                 .compact();
     }
     
-    // Valida um token JWT e retorna as claims
+    // Metodo - Valida um token JWT e retorna as claims
     public Claims validarToken(String token) {
         try {
             SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secret));
@@ -50,14 +50,15 @@ public class JwtUtil {
         }
     }
     
-    // Método - Para chamar o ValidarToken
-    // Extrai o email (subject) do token
+    /*Metodo - Para chamar o validarToken
+      Extrai o email (subject) do token
+    */
     public String getEmailFromToken(String token) {
         Claims claims = validarToken(token);
         return claims != null ? claims.getSubject() : null;
     }
 
     public String generateToken(String name) {
-       return gerarToken(name);
+        return gerarToken(name);
     }
 }
