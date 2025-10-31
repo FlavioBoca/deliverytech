@@ -1,9 +1,13 @@
+// JwtAhthenticationFilter.java
+
 
 package com.deliverytech.delivery_api.security;
 
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+// import io.micrometer.common.lang.NonNull;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +16,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.deliverytech.delivery_api.repository.UsuarioRepository;
 
-import io.micrometer.common.lang.NonNull;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.validation.constraints.NotNull;
+
+// import org.springframework.lang.NonNull;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -49,3 +56,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return authHeader.replace("Bearer ", "");
     }
 }
+ 

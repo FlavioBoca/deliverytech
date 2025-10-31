@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 public class LoginResponse {
     
     private String token;
+    //private String username;
+    //private String message;
 
         public void setUsername(String name) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setUsername'");
     }
 
     public void setMessage(String string) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setMessage'");
     }
 }
