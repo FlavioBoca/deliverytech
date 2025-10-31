@@ -18,8 +18,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -28,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-     @Override
+    @Override
     protected void doFilterInternal(
            @NonNull HttpServletRequest request,
            @NonNull HttpServletResponse response,
