@@ -1,12 +1,17 @@
 package com.deliverytech.delivery_api.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.apache.catalina.connector.ClientAbortException;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+//import org.apache.catalina.connector.ClientAbortException;
   
 
 @Entity
@@ -37,9 +42,9 @@ public class Pedido {
 
     @Enumerated(EnumType.STRING)
     private StatusPedido statusPedido;
-
+    
     private LocalDateTime dataPedido = LocalDateTime.now();
-
+    
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
 
