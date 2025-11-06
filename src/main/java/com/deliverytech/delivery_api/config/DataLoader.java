@@ -22,8 +22,8 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    //@Autowired
-    //private PedidoRepository pedidoRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @Override
     public void run(String... args) throws Exception {
