@@ -1,0 +1,17 @@
+=== ENTREGA - TESTE DE ENDPOINT ===
+Data/Hora: 07/11/2025 01:12:34
+Método: POST
+URL Completa: http://localhost:8080/api/auth/login
+Status HTTP: 200
+Content-Type: application/json
+
+=== DADOS ENVIADOS ===
+{
+  "username" : "flavio.boca@gmail.com",
+  "password" : "Fb38912"
+}
+
+=== RESPOSTA REAL ===
+{
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmbGF2aW8uYm9jYUBnbWFpbC5jb20iLCJpYXQiOjE3NjI0ODg3NTQsImV4cCI6MTc2MjU3NTE1NH0.tbj9vL8S1V6kDjERXNbX0xf2c8boBlXWSWgRx2wh3Gg"
+}

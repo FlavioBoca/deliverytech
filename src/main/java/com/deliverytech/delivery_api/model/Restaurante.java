@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,7 +39,8 @@ public class Restaurante {
     private BigDecimal taxaEntrega;
 
     private Integer tempoEntregaMinutos;
-
+    
+    @Builder.Default
     private Boolean ativo = true;
 
     @ManyToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
